@@ -130,7 +130,8 @@ import asyncio
 #     print(f"LLM Result: {result.content}")
 
 class ApiKeyManager:
-    REQUIRED_KEYS = ["GROQ_API_KEY", "GOOGLE_API_KEY", "ASTRA_DB_API_ENDPOINT","ASTRA_DB_APPLICATION_TOKEN","ASTRA_DB_KEYSPACE"]
+    #REQUIRED_KEYS = ["GROQ_API_KEY", "GOOGLE_API_KEY", "ASTRA_DB_API_ENDPOINT","ASTRA_DB_APPLICATION_TOKEN","ASTRA_DB_KEYSPACE"]
+    REQUIRED_KEYS = ["GROQ_API_KEY", "OPENAI_API_KEY", "GOOGLE_API_KEY", "ASTRA_DB_API_ENDPOINT","ASTRA_DB_APPLICATION_TOKEN","ASTRA_DB_KEYSPACE"]
 
     def __init__(self):
         self.api_keys = {}
@@ -203,7 +204,7 @@ class ModelLoader:
         Load and return the configured LLM model.
         """
         llm_block = self.config["llm"]
-        provider_key = os.getenv("LLM_PROVIDER", "google")
+        provider_key = os.getenv("LLM_PROVIDER", "openai")
 
         if provider_key not in llm_block:
             log.error("LLM provider not found in config", provider=provider_key)
