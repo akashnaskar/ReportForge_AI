@@ -59,7 +59,7 @@ class InterviewGraphBuilder:
             self.logger.info("Generating search query from conversation")
             structured_llm = self.llm.with_structured_output(SearchQuery)
             search_prompt = GENERATE_SEARCH_QUERY.render()
-            search_query = structured_llm.invoke([SystemMessage(context = search_prompt)] + state["messages"])
+            search_query = structured_llm.invoke([SystemMessage(content = search_prompt)] + state["messages"])
 
             self.logger.info("Performing Tavily web search", query = search_query.search_query)
             search_docs = self.tavily_search.invoke(search_query.search_query)
@@ -135,7 +135,7 @@ class InterviewGraphBuilder:
             self.logger.info("Gnerating report section", analyst = analyst.name)
             system_prompt = WRITE_SECTION.render(focus = analyst.description)
             section =self.llm.invoke(
-                [SystemMessage(context = system_prompt)]
+                [SystemMessage(content = system_prompt)]
                 +[HumanMessage(content=f"Use this source to write your section: {context}")]
             )
             self.logger.info("Report section generated succesfully", length = len(section.content))
