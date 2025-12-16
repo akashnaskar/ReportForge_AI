@@ -280,6 +280,13 @@ class AutonomousReportGenerator:
                     c.drawString(x, y, wline)
                     y -= line_height
 
+                    #uncomment this section if you want it left centred
+                    # # 🔹 Left Aligned X position
+                    # x = left_margin  # <--- CHANGE: Use the fixed left margin
+
+                    # c.drawString(x, y, wline)
+                    # y -= line_height
+
             # Optional footer with page number
             for page_num in range(1, c.getPageNumber() + 1):
                 c.setFont("Helvetica", 9)

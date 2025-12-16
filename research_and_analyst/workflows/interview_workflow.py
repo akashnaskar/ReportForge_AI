@@ -75,7 +75,7 @@ class InterviewGraphBuilder:
                 ]
             )
             self.logger.info("Web search completed", result_content = len(search_docs))
-            return {"context":["formatted"]}
+            return {"context":[formatted]}
 
         except Exception as e:
             self.logger.error("Error during web search", error=str(e))
