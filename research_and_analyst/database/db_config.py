@@ -21,7 +21,7 @@ class User(Base):
 #Create DB tables
 Base.metadata.create_all(bind = engine)
 
-def hash_password(password: str):
+def hash_password(password: str)-> str:
     safe_pw= password[:72]
     return pwd_context.hash(safe_pw)
 

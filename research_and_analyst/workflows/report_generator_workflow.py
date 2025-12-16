@@ -36,11 +36,11 @@ from research_and_analyst.exception.custom_exception import ResearchAnalystExcep
 class AutonomousReportGenerator:
     """Hanfles end to end autonomours report generation workflow with langgraph"""
 
-    def __init__(self, llm):
+    def __init__(self, llm,):
         self.llm = llm
         self.memory = MemorySaver()
         self.tavily_search = TavilySearchResults(tavily_api_key = "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")
-        self.logger = GLOBAL_LOGGER.bind(modeule = "AutonomousReportGenerator")
+        self.logger = GLOBAL_LOGGER.bind(module = "AutonomousReportGenerator")
 
     #---------------------------------------------------------------------------------------------------------
 
