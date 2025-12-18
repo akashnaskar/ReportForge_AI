@@ -3,7 +3,13 @@ FROM python:3.11-slim AS builder
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
+USER root
+# Switch to a different mirror to avoid Hash Sum Mismatch
+RUN sed -i 's/deb.debian.org/ftp.us.debian.org/g' /etc/apt/sources.list.d/debian.sources || \
+    sed -i 's/deb.debian.org/ftp.us.debian.org/g' /etc/apt/sources.list
+
+RUN apt-get update && \
+    apt-get install -y \
     gcc \
     g++ \
     && rm -rf /var/lib/apt/lists/*

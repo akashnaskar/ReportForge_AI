@@ -8,9 +8,9 @@ set -e
 # Configuration
 RESOURCE_GROUP="research-report-jenkins-rg"
 LOCATION="eastus"
-STORAGE_ACCOUNT="reportjenkinsstore"
+STORAGE_ACCOUNT="jenkinsstore$(date +%s | tail -c 6)"
 FILE_SHARE="jenkins-data"
-ACR_NAME="reportjenkinsacr"
+ACR_NAME="reportjenkinsacr$(date +%s | tail -c 6)"
 CONTAINER_NAME="jenkins-research-report"
 DNS_NAME_LABEL="jenkins-research-$(date +%s | tail -c 6)"
 JENKINS_IMAGE_NAME="custom-jenkins"
@@ -98,7 +98,7 @@ az acr login --name $ACR_NAME
 
 # Build custom Jenkins image with Git and safe.directory configuration
 echo "Building custom Jenkins Docker image for Linux AMD64..."
-docker build --platform linux/amd64 -f Dockerfile.jenkins -t ${ACR_NAME}.azurecr.io/${JENKINS_IMAGE_NAME}:${JENKINS_IMAGE_TAG} .
+docker build --no-cache --platform linux/amd64 -f Dockerfile.jenkins -t ${ACR_NAME}.azurecr.io/${JENKINS_IMAGE_NAME}:${JENKINS_IMAGE_TAG} .
 
 # Push Jenkins image to ACR with retry logic
 echo "Pushing Jenkins image to ACR..."
